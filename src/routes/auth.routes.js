@@ -9,25 +9,25 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/register', async (req, res) => {
-    const { nombre, apellido, email, password, repeatPassword, usuario } = req.body
+    const { name, lName, email, pass, rPass, user } = req.body
     try {
-        let user = await User.findOne({email})
-        let userq = await User.findOne({usuario})
+        let usern = await User.findOne({email})
+        let userq = await User.findOne({user})
 
-        if (user) res.status(400).json({ok: false, msg: 'correo repetido'})
+        if (usern) res.status(400).json({ok: false, msg: 'correo repetido'})
         if (userq) res.status(400).json({ok: false, msg: 'usuario en uso'})
-        if (password !== repeatPassword) res.status(400).json({ok: false, msg: 'las contraseñas no coinciden'})
+        if (pass !== rPass) res.status(400).json({ok: false, msg: 'las contraseñas no coinciden'})
         
-        let hashed_pass = await bcrypt.hash(password, 10)
-        user = new User({
-            nombre,
-            apellido,
-            usuario,
+        let hashed_pass = await bcrypt.hash(pass, 10)
+        usern = new User({
+            name,
+            lName,
+            user,
             email,
-            password: hashed_pass
+            pass: hashed_pass
         })
         await user.save()
-        res.status(201).json({ok: true, data: user})
+        res.status(201).json({ok: true, data: usern})
     } catch (error) {
         console.log(error)
     }
