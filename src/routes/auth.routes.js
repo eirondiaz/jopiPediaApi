@@ -30,16 +30,16 @@ router.post('/register', async (req, res) => {
 })
 
 router.post('/login', async (req, res) => {
-    const { email, pass } = req.body
+    const { user, pass } = req.body
     try {
-        let user = await User.findOne({email})
-        if (!user) return res.status(404).json({ok: false, msg: 'correo invalido'})
+        let userp = await User.findOne({user})
+        if (!userp) return res.status(404).json({ok: false, msg: 'correo invalido'})
         
-        const isMatch = await bcrypt.compare(pass, user.pass)
+        const isMatch = await bcrypt.compare(pass, userp.pass)
 
         if (!isMatch) return res.status(400).json({ok: false, msg: 'las contraseñas no coinciden'})
 
-        const token = await jwt.sign({id: user._id}, process.env.JWT_SECRET || 'secretKey')
+        const token = await jwt.sign({id: userp._id}, process.env.JWT_SECRET || 'secretKey')
         return res.status(200).json({ok: true, token})
     } catch (error) {
         console.log(error)
