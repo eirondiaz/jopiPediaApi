@@ -21,5 +21,8 @@ app.use(express.json())
 
 //routes
 app.use('/api/auth', require('./routes/auth.routes'))
+app.get('/', (req, res) => {
+    res.send('API de la JopiPedia hecha con NODE.JS/Express. Desarrollada por Eiron Diaz.')
+})
 
 module.exports = app
