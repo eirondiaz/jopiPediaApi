@@ -33,11 +33,11 @@ router.post('/login', async (req, res) => {
     const { user, pass } = req.body
     try {
         let userp = await User.findOne({user})
-        if (!userp) return res.status(404).json({ok: false, msg: 'correo invalido'})
+        if (!userp) return res.status(404).json({ok: false, msg: 'Usuario invalido'})
         
         const isMatch = await bcrypt.compare(pass, userp.pass)
 
-        if (!isMatch) return res.status(400).json({ok: false, msg: 'las contraseñas no coinciden'})
+        if (!isMatch) return res.status(400).json({ok: false, msg: 'Contraseña incorrecta'})
 
         const token = await jwt.sign({id: userp._id}, process.env.JWT_SECRET || 'secretKey')
         return res.status(200).json({ok: true, token})
