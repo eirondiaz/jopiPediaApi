@@ -18,8 +18,21 @@ mongoose.connect(CONNECTION_STRING, {
 
 //swagger doc
 const swaggerOptions = {
-
+    swaggerDefinition: {
+        info: {
+            title: 'JopiPedia API',
+            description: 'Esta es la api para la JopiPedia',
+            contact: {
+                name: 'Eiron Diaz'
+            },
+            servers: ['http://localhost:3200']
+        }
+    },
+    apis: ['index.js']
 }
+
+//const swaggerDocs = swaggerJsDoc(swaggerOptions)
+//app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 //middlewares
 app.use(cors())

@@ -12,4 +12,16 @@ router.get('/', requireLogin, async (req, res) => {
     }
 })
 
+router.put('/', requireLogin, async (req, res) => {
+    try {
+        let _user = await User.findByIdAndUpdate(req.user.id, req.body)
+        if (!_user) return res.status(400).json({ok: false, msg: 'error'})
+        
+        _user = await User.findOne({_id: req.user.id}).select('-pass')
+        return res.status(200).json({ok: true, data: _user})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 module.exports = router
