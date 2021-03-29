@@ -24,4 +24,13 @@ router.put('/', requireLogin, async (req, res) => {
     }
 })
 
+router.get('/getallusers', async (req, res) => {
+    try {
+        const users = await User.find()
+        return res.status(200).json({ok: true, users}).select('-pass')
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 module.exports = router
