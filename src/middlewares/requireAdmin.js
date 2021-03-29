@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-exports.requireAdmin = async (req, res) => {
+exports.requireAdmin = async (req, res, next) => {
     try {
         if (req.headers.authorization) {
             const token = await req.headers.authorization.split(' ')[1] || req.headers.authorization
