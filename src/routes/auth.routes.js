@@ -23,7 +23,8 @@ router.post('/register', async (req, res) => {
             pass: hashed_pass
         })
         await usern.save()
-        return res.status(201).json({ok: true, data: usern})
+        const token = await jwt.sign({id: usern._id}, process.env.JWT_SECRET || 'secretKey')
+        return res.status(201).json({ok: true, data: usern, token})
     } catch (error) {
         console.log(error)
     }

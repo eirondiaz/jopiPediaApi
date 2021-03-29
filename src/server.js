@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
+//const swaggerJsDoc = require('swagger-jsdoc')
+//const swaggerUI = require('swagger-ui-express')
 
 const app = express()
 app.set('port', process.env.PORT || 3200)
@@ -13,6 +15,11 @@ mongoose.connect(CONNECTION_STRING, {
     useFindAndModify: false
 }).then(() => console.log('DB Connected!'))
     .catch(error => console.log(error))
+
+//swagger doc
+const swaggerOptions = {
+
+}
 
 //middlewares
 app.use(cors())

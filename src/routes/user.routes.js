@@ -5,7 +5,7 @@ const User = require('../models/User')
 
 router.get('/', requireLogin, async (req, res) => {
     try {
-        const user = await User.findOne({_id: req.user.id})
+        const user = await User.findOne({_id: req.user.id}).select('-pass')
         return res.status(200).json({ok: true, user})
     } catch (error) {
         console.log(error)
