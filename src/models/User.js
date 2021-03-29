@@ -18,6 +18,10 @@ const userSchema = mongoose.Schema({
     },
     rPass: {
         type: String
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     }
 })
 

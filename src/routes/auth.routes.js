@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
             pass: hashed_pass
         })
         await usern.save()
-        const token = await jwt.sign({id: usern._id}, process.env.JWT_SECRET || 'secretKey')
+        const token = await jwt.sign({id: usern._id, isAdmin: usern.isAdmin}, process.env.JWT_SECRET || 'secretKey')
         return res.status(201).json({ok: true, data: usern, token})
     } catch (error) {
         console.log(error)
@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
 
         if (!isMatch) return res.status(400).json({ok: false, msg: 'Contraseña incorrecta'})
 
-        const token = await jwt.sign({id: userp._id}, process.env.JWT_SECRET || 'secretKey')
+        const token = await jwt.sign({id: userp._id, isAdmin: usern.isAdmin}, process.env.JWT_SECRET || 'secretKey')
         return res.status(200).json({ok: true, token})
     } catch (error) {
         console.log(error)
