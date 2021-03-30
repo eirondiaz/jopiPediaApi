@@ -45,4 +45,16 @@ router.post('/', requireAdmin, async (req, res) => {
     }
 })
 
+router.delete('/:id', requireAdmin, async (req, res) => {
+    try {
+        const deletedTheme = await Tema.findByIdAndDelete({_id: req.params.id})
+
+        if (!deletedTheme) return res.status(404).json({ok: false, msg: 'tema no encontrado'})
+
+        return res.status(200).json({ok: true, data: deletedTheme})
+    } catch (error) {
+        res.status(500).json({error})
+    }
+})
+
 module.exports = router
