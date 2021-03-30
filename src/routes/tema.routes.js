@@ -9,7 +9,7 @@ router.get('/getalltheme', requireLogin, async (req, res) => {
         let temas = await Tema.find()
         return res.status(200).json({ok: true, data: temas})
     } catch (error) {
-        console.log(error)
+        return res.status(500).json({error})
     }
 })
 
@@ -21,7 +21,7 @@ router.get('/getthemebyid/:id', requireLogin, async (req, res) => {
 
         return res.status(200).json({ok: true, data: theme})
     } catch (error) {
-        console.log(error)
+        return res.status(500).json({error})
     }
 })
 
@@ -41,7 +41,7 @@ router.post('/', requireAdmin, async (req, res) => {
         return res.status(201).json({ok: true, data: tema})
 
     } catch (error) {
-        console.log(error)
+        return res.status(500).json({error})
     }
 })
 
@@ -53,7 +53,19 @@ router.delete('/:id', requireAdmin, async (req, res) => {
 
         return res.status(200).json({ok: true, data: deletedTheme})
     } catch (error) {
-        res.status(500).json({error})
+        return res.status(500).json({error})
+    }
+})
+
+router.put('/:id', requireAdmin, async (req, res) => {
+    try {
+        let updatedTheme = await Tema.findByIdAndUpdate(req.params.id, req.body, { new: true })
+
+        if (!updatedTheme) return res.status(404).json({ok: false, msg: 'tema no encontrado'})
+
+        return res.status(200).json({ok: true, data: updatedTheme})
+    } catch (error) {
+        return res.status(500).json({error})
     }
 })
 

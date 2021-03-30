@@ -10,6 +10,6 @@ const temaSchema = mongoose.Schema({
     bgColor: {
         type: String
     }
-})
+}, { versionKey: false })
 
 module.exports = mongoose.model('Tema', temaSchema)

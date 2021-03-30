@@ -23,6 +23,6 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false
     }
-})
+}, { versionKey: false })
 
 module.exports = mongoose.model('User', userSchema)
