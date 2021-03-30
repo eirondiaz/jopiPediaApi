@@ -13,6 +13,18 @@ router.get('/getalltheme', requireLogin, async (req, res) => {
     }
 })
 
+router.get('/getthemebyid/:id', requireLogin, async (req, res) => {
+    try {
+        const theme = await Tema.findOne({_id: req.params.id})
+
+        if (!theme) return res.status(404).json({ok: false, msg: 'tema no encontrado'})
+
+        return res.status(200).json({ok: true, data: theme})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
 router.post('/', requireAdmin, async (req, res) => {
     const { title, desc, bgColor } = req.body
     try {
