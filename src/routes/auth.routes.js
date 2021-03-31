@@ -3,6 +3,7 @@ const router = Router()
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
+const { requireLogin } = require('../middlewares/requireLogin')
 
 router.post('/register', async (req, res) => {
     const { name, lName, email, pass, rPass, user } = req.body
@@ -41,9 +42,17 @@ router.post('/login', async (req, res) => {
         if (!isMatch) return res.status(400).json({ok: false, msg: 'Contraseña incorrecta'})
 
         const token = await jwt.sign({id: userp._id, isAdmin: userp.isAdmin}, process.env.JWT_SECRET || 'secretKey')
-        return res.status(200).json({ok: true, token})
+        return res.status(200).json({ok: true, token, isAdmin: userp.isAdmin})
     } catch (error) {
         console.log(error)
+    }
+})
+
+router.get('/getdata', requireLogin, async (req, res) => {
+    try {
+        return res.status(200).json({ok: true, data: req.user})
+    } catch (error) {
+        return res.status(500).json({error})
     }
 })
 
