@@ -5,6 +5,12 @@ const Tema = require('../models/Tema')
 const { requireAdmin } = require('../middlewares/requireAdmin')
 const { requireLogin } = require('../middlewares/requireLogin')
 
+/**
+ * @swagger
+ * /getbytemaid/:id:
+ *  get:
+ *   
+ */
 router.get('/getbytemaid/:id', requireLogin, async (req, res) => {
     try {
         const preguntas = await Pregunta.find({tema: req.params.id}).populate('tema')
