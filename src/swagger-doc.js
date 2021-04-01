@@ -1,7 +1,5 @@
 const swaggerJsDoc = require('swagger-jsdoc')
-const swaggerUI = require('swagger-ui-express')
-const express = require('express')
-const app = require('./server')
+const swaggerDocument = require('./swagger.json')
 
 //swagger doc
 const swaggerOptions = {
@@ -18,30 +16,6 @@ const swaggerOptions = {
     apis: ['src/swagger-doc.js']
 }
 
-const swaggerDocs = swaggerJsDoc(swaggerOptions)
-//app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
-
-/**
- * @swagger
- * /api/pregunta/getbytemaid/{id}:
- *  get:
- *   summary: obtener preguntas filtrado por tema
- *   tags: 
- *    - pregunta
- *   parameters:
- *    - in: path
- *      name: id
- *      schema:
- *        type: string
- *      required: true
- *    - in: header
- *      name: Authorization
- *      schema:
- *        type: string
- *      required: true
- *   responses:
- *    '200':
- *      description: dsdsadad
- */
+const swaggerDocs = swaggerJsDoc(swaggerDocument)
 
 module.exports = swaggerDocs

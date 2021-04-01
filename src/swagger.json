@@ -1,0 +1,481 @@
+{
+    "swaggerDefinition": {
+        "info": {
+            "title": "JopiPedia API",
+            "description": "Esta es la api para la JopiPedia",
+            "contact": {
+                "name": "Eiron Diaz"
+            },
+            "servers": ["http://localhost:3200", "https://jopipedia.herokuapp.com"]
+        },
+        "paths": {
+            "/api/auth/login": {
+                "post": {
+                    "summary": "Iniciar sesion",
+                    "tags": ["Auth"],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "user",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "user": {
+                                        "type": "string",
+                                        "example": "eirondr"
+                                    },
+                                    "pass": {
+                                        "type": "string",
+                                        "example": "eiron123"
+                                    }
+                                },
+                                "required": ["user", "pass"]
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "201": {
+                            "description": "created"
+                        }
+                    }
+                }
+            },
+            "/api/auth/register": {
+                "post": {
+                    "summary": "Registrar usuario",
+                    "tags": ["Auth"],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "usuario",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Eiron"
+                                    },
+                                    "lName": {
+                                        "type": "string",
+                                        "example": "Diaz"
+                                    },
+                                    "user": {
+                                        "type": "string",
+                                        "example": "eirondr"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "eiron@gmail.com"
+                                    },
+                                    "pass": {
+                                        "type": "string",
+                                        "example": "eiron123"
+                                    },
+                                    "rPass": {
+                                        "type": "string",
+                                        "example": "eiron123"
+                                    }
+                                },
+                                "required": ["name", "lName", "user", "email", "rPass", "pass"]
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "201": {
+                            "description": "created"
+                        }
+                    }
+                }
+            },
+            "/api/auth/getdata": {
+                "get": {
+                    "summary": "obtener datos del usuario",
+                    "tags": ["Auth"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/pregunta": {
+                "post": {
+                    "summary": "crear pregunta",
+                    "tags": ["Pregunta"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "description": "token",
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "body",
+                            "name": "pregunta",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "desc": {
+                                        "type": "string"
+                                    },
+                                    "respuestas": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "desc": {
+                                                    "type": "string"
+                                                },
+                                                "correcta": {
+                                                    "type": "boolean"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "tema": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["desc", "respuestas", "tema"]
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/pregunta/getbytemaid/{id}": {
+                "get": {
+                    "summary": "obtener preguntas filtrado por tema",
+                    "tags": ["Pregunta"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/pregunta/getallpregunta": {
+                "get": {
+                    "summary": "obtener todas las preguntas",
+                    "tags": ["Pregunta"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/pregunta/{id}": {
+                "put": {
+                    "summary": "actualizar pregunta",
+                    "tags": ["Pregunta"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "body",
+                            "name": "pregunta",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "desc": {
+                                        "type": "string"
+                                    },
+                                    "respuestas": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "desc": {
+                                                    "type": "string"
+                                                },
+                                                "correcta": {
+                                                    "type": "boolean"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "tema": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["desc", "respuestas", "tema"]
+                            }
+                        }
+                    ]
+                },
+                "delete": {
+                    "summary": "eliminar pregunta",
+                    "tags": ["Pregunta"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/tema/getalltheme": {
+                "get": {
+                    "summary": "obtener todos los temas",
+                    "tags": ["Tema"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "description": "token",
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/tema/getthemebyid/{id}": {
+                "get": {
+                    "summary": "obtener tema por id",
+                    "tags": ["Tema"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "required": true,
+                            "description": "id del tema",
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "description": "token",
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/tema": {
+                "post": {
+                    "summary": "crear tema",
+                    "tags": ["Tema"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "description": "token",
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "body",
+                            "name": "tema",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "desc": {
+                                        "type": "string"
+                                    },
+                                    "bgColor": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["title", "desc", "bgColor"]
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/tema/{id}": {
+                "put": {
+                    "summary": "actualizar tema",
+                    "tags": ["Tema"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "id del tema",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "description": "token",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "body",
+                            "name": "tema",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "desc": {
+                                        "type": "string"
+                                    },
+                                    "bgColor": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["title", "desc", "bgColor"]
+                            }
+                        }
+                    ]
+                },
+                "delete": {
+                    "summary": "eliminar tema",
+                    "tags": ["Tema"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description":"id del tema",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "description": "token",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "apis": ["src/swagger-doc.js"]
+}
