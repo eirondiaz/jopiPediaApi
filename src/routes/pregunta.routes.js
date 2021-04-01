@@ -46,7 +46,7 @@ router.post('/', requireAdmin, async (req, res) => {
     }
 })
 
-router.delete('/id', requireAdmin, async (req, res) => {
+router.delete('/:id', requireAdmin, async (req, res) => {
     try {
         const preguntaDeleted = await Pregunta.findByIdAndDelete(req.params.id)
 
