@@ -31,7 +31,7 @@ router.post('/', requireAdmin, async (req, res) => {
 
         if (!temaFind) return res.status(404).json({ok: false, msg: 'tema no encontrado'})
 
-        if (respuestas.length !== 6) res.status(400).json({ok: false, msg: 'debe haber 4 o 6 respuestas'})
+        if (respuestas.length !== 4) res.status(400).json({ok: false, msg: 'debe haber 4 o 6 respuestas'})
 
         let pregunta = new Pregunta({
             desc,
