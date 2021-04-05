@@ -474,6 +474,74 @@
                         }
                     ]
                 }
+            },
+            "/api/user": {
+                "get": {
+                    "summary": "obtener los datos del usuario logueado",
+                    "tags": ["User"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                },
+                "put": {
+                    "summary": "actualizar los datos del usuario",
+                    "tags": ["User"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "description": "token",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "body",
+                            "name": "user",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "lName": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/user/getallusers": {
+                "get": {
+                    "summary": "obtener lista de todos los usuarios",
+                    "tags": ["User"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    }
+                }
             }
         }
     },

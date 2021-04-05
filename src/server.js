@@ -5,10 +5,9 @@ const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger-doc')
 require('./swagger-doc')
 
+//settings
 const app = express()
-
 app.set('port', process.env.PORT || 3200)
-
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 //middlewares
