@@ -22,6 +22,20 @@ const userSchema = mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    puntuaciones: [
+        {
+            tema: {
+                ref: 'Tema',
+                type: mongoose.Schema.Types.ObjectId
+            },
+            score: {
+                type: Number
+            }
+        }
+    ],
+    foto: {
+        type: String
     }
 }, { versionKey: false })
 

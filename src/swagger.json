@@ -525,6 +525,9 @@
                                     },
                                     "lName": {
                                         "type": "string"
+                                    },
+                                    "foto": {
+                                        "type": "string"
                                     }
                                 }
                             }
