@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const morgan = require('morgan')
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger-doc')
 require('./database')
@@ -13,7 +12,6 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 //middlewares
 app.use(cors())
-app.use(morgan('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
