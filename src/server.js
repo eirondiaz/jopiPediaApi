@@ -3,9 +3,10 @@ const cors = require('cors')
 require('./database')
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger-doc')
+require('./swagger-doc')
 
 const app = express()
-require('./swagger-doc')
+
 app.set('port', process.env.PORT || 3200)
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
@@ -17,7 +18,9 @@ app.use(express.json())
 
 //routes
 app.get('/', (req, res) => {
-    res.status(200).send('API de la JopiPedia hecha con NODE.JS/Express. Desarrollada por Eiron Diaz.')
+    res
+      .status(200)
+      .send('API de la JopiPedia hecha con NODE.JS/Express. Desarrollada por Eiron Diaz.')
 })
 app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/user', require('./routes/user.routes'))
