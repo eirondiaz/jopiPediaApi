@@ -24,7 +24,6 @@ const getScoresByUsername = async (req, res) => {
         let _user = await User.findOne({user: req.params.username})
 
         if (!_user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
-        console.log(_user)
 
         let scores = await Score.find({user: _user._id})
             .populate(
@@ -45,7 +44,7 @@ const getScoresUserLogged = async (req, res) => {
     try {
         let scores = await Score.find({user: req.user.id})
             .populate(
-                {path: 'tema', select: '-desc -bgColor -__v'}
+                {path: 'tema', select: '-desc -__v'}
             )
             .populate(    
                 {path: 'user', select: '-pass -isAdmin -__v'}
