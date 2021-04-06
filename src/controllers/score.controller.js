@@ -100,14 +100,19 @@ const highestScores = async (req, res) => {
         let scores = []
 
         await Promise.all(temasId.map(async (x) => {
-            let tema =  await Score.findOne({tema: x}).sort({score: -1})
+            let tema =  await Score.find({tema: x}).sort({score: -1}).limit(5)
                 .populate(
                     {path: 'tema', select: '-desc -bgColor -__v'}
                 )
                 .populate(    
                     {path: 'user', select: '-pass -isAdmin -email -__v'}
                 )
-            scores.push(tema)
+
+            let scc = {
+                tema: tema[0].tema,
+                scores: tema
+            }
+            scores.push(scc)
         }))
         
         res.status(200).json({ok: true, data: scores})
