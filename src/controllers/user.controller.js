@@ -30,8 +30,22 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+const getUserByUsername = async (req, res) => {
+    try {
+        const user = await User.findOne({user: req.params.username}).select('-pass')
+
+        if (!user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
+
+        res.status(200).json({ok: true, data: user})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error)
+    }
+}
+
 module.exports = {
     getCurrentUser,
     updateUser,
-    getAllUsers
+    getAllUsers,
+    getUserByUsername
 }

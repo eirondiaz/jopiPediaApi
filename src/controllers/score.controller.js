@@ -10,6 +10,7 @@ const getAllScores = async (req, res) => {
             .populate(    
                 {path: 'user', select: '-pass -isAdmin'}
             )
+            
         res.status(200).json({ok: true, data: scores})
     } catch (error) {
         console.log(error)
@@ -70,11 +71,12 @@ const createScore = async (req, res) => {
                     tema,
                     user: req.user.id
                 })
+
                 await newScore.save()
                 return res.status(201).json({ok: true, data: newScore})
             }
 
-            return res.status(404).json({ok: false, msg: 'el nuevo score es menor al score anterior'})
+            return res.status(200).json({ok: false, msg: 'el nuevo score es menor al score anterior'})
         }
 
         let newScore = new Score({
@@ -82,6 +84,7 @@ const createScore = async (req, res) => {
             tema,
             user: req.user.id
         })
+
         await newScore.save()
         return res.status(201).json({ok: true, data: newScore})
 
