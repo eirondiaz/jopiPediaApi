@@ -27,7 +27,7 @@ const getScoresByUsername = async (req, res) => {
 
         let scores = await Score.find({user: _user._id})
             .populate(
-                {path: 'tema', select: '-desc -bgColor'}
+                {path: 'tema', select: '-desc'}
             )
             .populate(    
                 {path: 'user', select: '-pass -isAdmin'}
