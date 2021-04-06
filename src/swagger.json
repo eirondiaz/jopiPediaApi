@@ -545,6 +545,119 @@
                         }
                     }
                 }
+            },
+            "/api/score": {
+                "get": {
+                    "summary": "obtener todos los scores",
+                    "tags": ["Score"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                },
+                "post": {
+                    "summary": "crear score",
+                    "tags": ["Score"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "required": true,
+                            "description": "token",
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "body",
+                            "name": "score",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "tema": {
+                                        "type": "string"
+                                    },
+                                    "score": {
+                                        "type": "number"
+                                    }
+                                },
+                                "required": ["tema", "score"]
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/score/scorebyuserid/{id}": {
+                "get": {
+                    "summary": "obtener score por id de usuario",
+                    "tags": ["Score"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "id del usuario",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/score/scoresuserlogged": {
+                "get": {
+                    "summary": "obtener los scores del usuario logueado",
+                    "tags": ["Score"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "description": "token",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/score/highestscores": {
+                "get": {
+                    "summary": "obtener los scores mas altos",
+                    "tags": ["Score"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    }
+                }
             }
         }
     },

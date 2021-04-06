@@ -25,5 +25,6 @@ app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/user', require('./routes/user.routes'))
 app.use('/api/tema', require('./routes/tema.routes'))
 app.use('/api/pregunta', require('./routes/pregunta.routes'))
+app.use('/api/score', require('./routes/score.routes'))
 
 module.exports = app

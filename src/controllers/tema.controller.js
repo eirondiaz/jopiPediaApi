@@ -27,7 +27,7 @@ const createTema = async (req, res) => {
         let tema = await Tema.findOne({title})
 
         if (tema) return res.status(400).json({ok: false, msg: 'ese tema ya existe'})
-
+        
         tema = new Tema({
             title,
             desc, 
