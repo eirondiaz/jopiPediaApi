@@ -5,7 +5,7 @@ const scoreCtrl = require('../controllers/score.controller')
 
 router.get('/', requireLogin, scoreCtrl.getAllScores)
 
-router.get('/scorebyuserid/:id', scoreCtrl.getScoresByUserId)
+router.get('/scorebyusername/:username', scoreCtrl.getScoresByUsername)
 
 router.get('/highestscores', scoreCtrl.highestScores)
 

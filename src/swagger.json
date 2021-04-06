@@ -634,9 +634,9 @@
                     ]
                 }
             },
-            "/api/score/scorebyuserid/{id}": {
+            "/api/score/scorebyusername/{username}": {
                 "get": {
-                    "summary": "obtener score por id de usuario",
+                    "summary": "obtener score por username",
                     "tags": ["Score"],
                     "responses": {
                         "200": {
@@ -646,8 +646,8 @@
                     "parameters": [
                         {
                             "in": "path",
-                            "name": "id",
-                            "description": "id del usuario",
+                            "name": "username",
+                            "description": "user del usuario",
                             "required": true,
                             "schema": {
                                 "type": "string"

@@ -1,5 +1,6 @@
 const Score = require('../models/Score')
 const Tema = require('../models/Tema')
+const User = require('../models/User')
 
 const getAllScores = async (req, res) => {
     try {
@@ -18,9 +19,14 @@ const getAllScores = async (req, res) => {
     }
 }
 
-const getScoresByUserId = async (req, res) => {
+const getScoresByUsername = async (req, res) => {
     try {
-        let scores = await Score.find({user: req.params.id})
+        let _user = await User.findOne({user: req.params.username})
+
+        if (!_user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
+        console.log(_user)
+
+        let scores = await Score.find({user: _user._id})
             .populate(
                 {path: 'tema', select: '-desc -bgColor'}
             )
@@ -126,7 +132,7 @@ const highestScores = async (req, res) => {
 module.exports = {
     getAllScores,
     createScore,
-    getScoresByUserId,
+    getScoresByUsername,
     highestScores,
     getScoresUserLogged
 }
