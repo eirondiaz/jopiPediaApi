@@ -53,7 +53,7 @@ const addFans = async (req, res) => {
 
         if (userLogged.user == req.params.username) return res.status(400).json({ok: false, msg: 'no puedes ser fans de ti mismo'})
 
-        if (user.fans.find(x => x == req.user.id)) res.status(400).json({ok: false, msg: 'ya eres fans de este usuario'})
+        if (user.fans.find(x => x == req.user.id)) return res.status(400).json({ok: false, msg: 'ya eres fans de este usuario'})
 
         let fans = [...user.fans, req.user.id]
 
