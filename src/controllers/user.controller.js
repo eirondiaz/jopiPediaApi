@@ -81,7 +81,7 @@ const deleteFans = async (req, res) => {
 
         let userLogged = await User.findById(req.user.id)
 
-        if (userLogged.user == req.params.username) return res.status(400).json({ok: false, msg: 'no puedes ser fans de ti mismo'})
+        if (userLogged.user == req.params.username) return res.status(400).json({ok: false, msg: 'no eres fans de ti mismo'})
 
         if (!user.fans.find(x => x == req.user.id)) return res.status(400).json({ok: false, msg: 'no eres fans de este usuario'})
 

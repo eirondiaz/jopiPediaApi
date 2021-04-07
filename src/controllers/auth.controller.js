@@ -50,6 +50,8 @@ const register = async (req, res) => {
 const getUserData = async (req, res) => {
     try {
         return res.status(200).json({ok: true, data: req.user})
+            .select('-pass')
+            .populate({path: 'fans', select: '-pass -__v'})
     } catch (error) {
         console.log(error)
         return res.status(500).json({error})
