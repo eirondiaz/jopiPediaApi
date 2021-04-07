@@ -23,7 +23,10 @@ const updateUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.find().select('-pass')
+        const users = await User.find()
+            .select('-pass')
+            .populate({path: 'fans', select: '-pass -__v'})
+
         return res.status(200).json({ok: true, users})
     } catch (error) {
         console.log(error)
@@ -32,7 +35,9 @@ const getAllUsers = async (req, res) => {
 
 const getUserByUsername = async (req, res) => {
     try {
-        const user = await User.findOne({user: req.params.username}).select('-pass').populate('fans')
+        const user = await User.findOne({user: req.params.username})
+            .select('-pass')
+            .populate({path: 'fans', select: '-pass -__v'})
 
         if (!user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
 
@@ -57,7 +62,9 @@ const addFans = async (req, res) => {
 
         let fans = [...user.fans, req.user.id]
 
-        user = await User.findOneAndUpdate({user: req.params.username}, {fans}, { new: true }).select('-pass')
+        user = await User.findOneAndUpdate({user: req.params.username}, {fans}, { new: true })
+            .select('-pass')
+            .populate({path: 'fans', select: '-pass -__v'})
 
         return res.status(200).json({ok: true, data: user})
     } catch (error) {
