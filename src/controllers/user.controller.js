@@ -2,7 +2,10 @@ const User = require('../models/User')
 
 const getCurrentUser = async (req, res) => {
     try {
-        const user = await User.findOne({_id: req.user.id}).select('-pass')
+        const user = await User.findOne({_id: req.user.id})
+            .select('-pass')
+            .populate({path: 'fans', select: '-pass -__v'})
+            
         return res.status(200).json({ok: true, user})
     } catch (error) {
         console.log(error)
