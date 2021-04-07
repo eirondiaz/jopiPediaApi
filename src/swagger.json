@@ -21,16 +21,16 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "user": {
+                                    "email": {
                                         "type": "string",
-                                        "example": "eirondr"
+                                        "example": "eiron@gmail.com"
                                     },
                                     "pass": {
                                         "type": "string",
                                         "example": "eiron123"
                                     }
                                 },
-                                "required": ["user", "pass"]
+                                "required": ["email", "pass"]
                             }
                         }
                     ],
