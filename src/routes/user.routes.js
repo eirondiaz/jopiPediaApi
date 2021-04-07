@@ -12,4 +12,6 @@ router.get('/getallusers', userCtrl.getAllUsers)
 
 router.get('/:username', requireLogin, userCtrl.getUserByUsername)
 
+router.put('/addfans/:username', requireLogin, userCtrl.addFans)
+
 module.exports = router

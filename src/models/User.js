@@ -25,7 +25,13 @@ const userSchema = mongoose.Schema({
     },
     foto: {
         type: String
-    }
+    },
+    fans: [
+        {
+            ref: 'User',
+            type: mongoose.Schema.Types.ObjectId
+        }
+    ]
 }, { versionKey: false })
 
 module.exports = mongoose.model('User', userSchema)

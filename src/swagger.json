@@ -576,6 +576,37 @@
                     }
                 }
             },
+            "/api/user/addfans/{username}": {
+                "put": {
+                    "summary": "añadir fans",
+                    "tags": ["User"],
+                    "responses": {
+                        "200": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "description": "token",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "path",
+                            "name": "username",
+                            "description": "usuario",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
+            },
             "/api/score": {
                 "get": {
                     "summary": "obtener todos los scores",
