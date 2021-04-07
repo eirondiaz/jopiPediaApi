@@ -49,11 +49,15 @@ const addFans = async (req, res) => {
 
         if (!user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
 
-        if (user.fans.find(x => x == req.user._id)) res.status(400).json({ok: false, msg: 'ya eres fans de este usuario'})
+        let userLogged = await User.findById(req.user.id)
 
-        let fans = [...user.fans, req.user._id]
+        if (userLogged.user == req.params.username) return res.status(400).json({ok: false, msg: 'no puedes ser fans de ti mismo'})
 
-        user = await User.findOneAndUpdate({user: req.params.username}, {fans}, { new: true })
+        if (user.fans.find(x => x == req.user.id)) res.status(400).json({ok: false, msg: 'ya eres fans de este usuario'})
+
+        let fans = [...user.fans, req.user.id]
+
+        user = await User.findOneAndUpdate({user: req.params.username}, {fans}, { new: true }).select('-pass')
 
         return res.status(200).json({ok: true, data: user})
     } catch (error) {
