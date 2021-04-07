@@ -73,10 +73,36 @@ const addFans = async (req, res) => {
     }
 }
 
+const deleteFans = async (req, res) => {
+    try {
+        let user = await User.findOne({user: req.params.username})
+
+        if (!user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
+
+        let userLogged = await User.findById(req.user.id)
+
+        if (userLogged.user == req.params.username) return res.status(400).json({ok: false, msg: 'no puedes ser fans de ti mismo'})
+
+        if (!user.fans.find(x => x == req.user.id)) return res.status(400).json({ok: false, msg: 'no eres fans de este usuario'})
+
+        let fans = user.fans.filter(x => x != req.user.id)
+
+        user = await User.findOneAndUpdate({user: req.params.username}, {fans}, { new: true })
+            .select('-pass')
+            .populate({path: 'fans', select: '-pass -__v'})
+
+        return res.status(200).json({ok: true, data: user})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error)
+    }
+}
+
 module.exports = {
     getCurrentUser,
     updateUser,
     getAllUsers,
     getUserByUsername,
-    addFans
+    addFans,
+    deleteFans
 }

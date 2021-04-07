@@ -14,4 +14,6 @@ router.get('/:username', requireLogin, userCtrl.getUserByUsername)
 
 router.put('/addfans/:username', requireLogin, userCtrl.addFans)
 
+router.put('/deletefans/:username', requireLogin, userCtrl.deleteFans)
+
 module.exports = router
