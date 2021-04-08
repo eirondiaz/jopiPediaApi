@@ -5,7 +5,7 @@ const User = require('../models/User')
 const login = async (req, res) => {
     const { email, pass } = req.body
     try {
-        let userp = await User.findOne({email})
+        let userp = await User.findOne({$or: [{email}, {user: email}]})
         if (!userp) return res.status(404).json({ok: false, msg: 'Usuario invalido'})
         
         const isMatch = await bcrypt.compare(pass, userp.pass)
