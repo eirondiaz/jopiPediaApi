@@ -14,7 +14,18 @@ const getCurrentUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        let _user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true}).select('-pass -foto')
+        
+        if (req.body.foto == undefined) {
+            let _user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true})
+                .select('-pass -foto')
+                .populate({path: 'fans', select: '-pass -__v'})
+        }
+        else {      
+            let _user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true})
+                .select('-pass')
+                .populate({path: 'fans', select: '-pass -__v'})
+        }
+
         if (!_user) return res.status(400).json({ok: false, msg: 'error'})
         
         //_user = await User.findOne({_id: req.user.id}).select('-pass')
