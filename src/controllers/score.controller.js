@@ -30,7 +30,7 @@ const getScoresByUsername = async (req, res) => {
                 {path: 'tema', select: '-desc'}
             )
             .populate(    
-                {path: 'user', select: '-pass -isAdmin'}
+                {path: 'user', select: '-pass -foto -isAdmin'}
             )
             
         return res.status(200).json({ok: true, data: scores})
@@ -47,7 +47,7 @@ const getScoresUserLogged = async (req, res) => {
                 {path: 'tema', select: '-desc -__v'}
             )
             .populate(    
-                {path: 'user', select: '-pass -isAdmin -__v'}
+                {path: 'user', select: '-pass -foto -isAdmin -__v'}
             )
             
         return res.status(200).json({ok: true, data: scores})
@@ -110,7 +110,7 @@ const highestScores = async (req, res) => {
                     {path: 'tema', select: '-desc -__v'}
                 )
                 .populate(    
-                    {path: 'user', select: '-pass -isAdmin -email -__v'}
+                    {path: 'user', select: '-pass -foto -isAdmin -email -__v'}
                 )
 
             let scc = {
