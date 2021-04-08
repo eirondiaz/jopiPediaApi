@@ -14,7 +14,7 @@ const getCurrentUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        let _user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true})
+        let _user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true}).select('-pass -foto')
         if (!_user) return res.status(400).json({ok: false, msg: 'error'})
         
         //_user = await User.findOne({_id: req.user.id}).select('-pass')
