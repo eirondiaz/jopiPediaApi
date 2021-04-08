@@ -5,7 +5,7 @@ const getCurrentUser = async (req, res) => {
         const user = await User.findOne({_id: req.user.id})
             .select('-pass')
             .populate({path: 'fans', select: '-pass -__v'})
-            
+
         return res.status(200).json({ok: true, user})
     } catch (error) {
         console.log(error)
@@ -14,10 +14,10 @@ const getCurrentUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        let _user = await User.findByIdAndUpdate(req.user.id, req.body)
+        let _user = await User.findByIdAndUpdate(req.user.id, req.body, { new: true})
         if (!_user) return res.status(400).json({ok: false, msg: 'error'})
         
-        _user = await User.findOne({_id: req.user.id}).select('-pass')
+        //_user = await User.findOne({_id: req.user.id}).select('-pass')
         return res.status(200).json({ok: true, data: _user})
     } catch (error) {
         console.log(error)
