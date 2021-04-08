@@ -110,7 +110,7 @@ const highestScores = async (req, res) => {
                     {path: 'tema', select: '-desc -__v'}
                 )
                 .populate(    
-                    {path: 'user', select: '-pass -foto -isAdmin -email -__v'}
+                    {path: 'user', select: '-pass -isAdmin -email -__v'}
                 )
 
             let scc = {
