@@ -4,6 +4,7 @@ const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger-doc')
 require('./database')
 require('./swagger-doc')
+const bodyParser = require('body-parser')
 
 //settings
 const app = express()
@@ -12,6 +13,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs))
 
 //middlewares
 app.use(cors())
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
