@@ -3,9 +3,7 @@ const Tema = require('../models/Tema')
 
 const getPregByTemaId = async (req, res) => {
     try {
-        const preguntas = await Pregunta.find({tema: req.params.id})
-        .populate('tema')
-        .limit(20)
+        const preguntas = await Pregunta.find({tema: req.params.id}).populate('tema')
         
         return res.status(200).json({ok: true, data: preguntas})
     } catch (error) {
@@ -16,7 +14,6 @@ const getPregByTemaId = async (req, res) => {
 const getAllPregunta = async (req, res) => {
     try {
         const preguntas = await Pregunta.find().populate('tema')
-        
         return res.status(200).json({ok: true, data: preguntas})
     } catch (error) {
         console.log(error)
