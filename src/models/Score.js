@@ -11,7 +11,11 @@ const scoreSchema = mongoose.Schema({
     },
     score: {
         type: Number
+    },
+    createdAt: { 
+        type: Date, 
+        default: Date.now 
     }
-}, { versionKey: false, timestamps: true })
+}, { versionKey: false })
 
 module.exports = mongoose.model('Score', scoreSchema)
