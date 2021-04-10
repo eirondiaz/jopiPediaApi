@@ -2,16 +2,20 @@ const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema({
     name: {
-        type: String
+        type: String,
+        trim: true
     },
     lName: {
-        type: String
+        type: String,
+        trim: true
     },
     user: {
-        type: String
+        type: String,
+        trim: true
     },
     email: {
-        type: String
+        type: String,
+        trim: true
     },
     pass: {
         type: String
