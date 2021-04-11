@@ -105,7 +105,7 @@ const highestScores = async (req, res) => {
         let scores = []
 
         await Promise.all(temasId.map(async (x) => {
-            let tema =  await Score.find({tema: x}).sort({score: -1}).limit(5)
+            let tema =  await Score.find({tema: x}).sort({score: -1, createdAt: -1}).limit(5)
                 .populate(
                     {path: 'tema', select: '-desc -__v'}
                 )
