@@ -68,7 +68,7 @@ const createScore = async (req, res) => {
         let scoreExsist = await Score.findOne({tema, user: req.user.id})
 
         if (scoreExsist) {
-            if (Number(score) > Number(scoreExsist.score)) {
+            if (Number(score) >= Number(scoreExsist.score)) {
                 await scoreExsist.delete()
 
                 let newScore = new Score({
