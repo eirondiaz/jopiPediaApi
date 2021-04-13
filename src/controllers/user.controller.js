@@ -5,6 +5,7 @@ const getCurrentUser = async (req, res) => {
         const user = await User.findOne({_id: req.user.id})
             .select('-pass')
             .populate({path: 'fans', select: '-pass -__v'})
+            .populate('restricciones')
 
         return res.status(200).json({ok: true, user})
     } catch (error) {

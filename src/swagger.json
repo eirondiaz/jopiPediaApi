@@ -750,6 +750,83 @@
                         }
                     }
                 }
+            },
+            "/api/restriccion": {
+                "get": {
+                    "summary": "obtener las restricciones del user logueado",
+                    "tags": ["Restriccion"],
+                    "responses": {
+                        "200": {
+                            "description": "ok"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "description": "token",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                },
+                "post": {
+                    "summary": "crear restriccion",
+                    "tags": ["Restriccion"],
+                    "responses": {
+                        "201": {
+                            "description": "created"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "description": "token",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "body",
+                            "name": "restriccion",
+                            "description": "data",
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "tema": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["tema"]
+                            }
+                        }
+                    ]
+                }
+            },
+            "/api/restriccion/{username}": {
+                "get": {
+                    "summary": "obtener las restricciones by username",
+                    "tags": ["Restriccion"],
+                    "responses": {
+                        "200": {
+                            "description": "ok"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "username",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
             }
         }
     },

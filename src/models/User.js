@@ -35,6 +35,12 @@ const userSchema = mongoose.Schema({
             ref: 'User',
             type: mongoose.Schema.Types.ObjectId
         }
+    ],
+    restricciones: [
+        {
+            ref: 'Restriccion',
+            type: mongoose.Schema.Types.ObjectId
+        }
     ]
 }, { versionKey: false })
 
