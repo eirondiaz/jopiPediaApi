@@ -12,4 +12,9 @@ const temaSchema = mongoose.Schema({
     }
 }, { versionKey: false })
 
+temaSchema.pre('remove', async function (next) {
+    await mongoose.model('Pregunta').deleteMany({tema: this._id})
+    next()
+})
+
 module.exports = mongoose.model('Tema', temaSchema)

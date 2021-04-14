@@ -43,12 +43,15 @@ const createTema = async (req, res) => {
 
 const deleteTema = async (req, res) => {
     try {
-        const deletedTheme = await Tema.findByIdAndDelete({_id: req.params.id})
+        const deletedTheme = await Tema.findById(req.params.id)
 
         if (!deletedTheme) return res.status(404).json({ok: false, msg: 'tema no encontrado'})
 
+        await deletedTheme.remove()
+
         return res.status(200).json({ok: true, data: deletedTheme})
     } catch (error) {
+        console.log(error)
         return res.status(500).json({error})
     }
 }

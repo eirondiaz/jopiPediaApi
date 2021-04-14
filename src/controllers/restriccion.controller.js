@@ -2,6 +2,9 @@ const Restriccion = require('../models/Restriccion')
 const Tema = require('../models/Tema')
 const User = require('../models/User')
 
+// @desc      Create Restriccion
+// @route     POST /api/restriccion
+// @access    Private
 const createRest = async (req, res) => {
     const { tema } = req.body
     try {
@@ -13,8 +16,6 @@ const createRest = async (req, res) => {
 
         if(!_user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
 
-        //let restriccion = await Restriccion.findOne({tema})
-        //debo filtarr por tema y user._id
         let hayRestriccion = await _user.restricciones.find(x => x.tema == tema)
         
         if (!hayRestriccion) {
@@ -56,6 +57,9 @@ const createRest = async (req, res) => {
     }
 }
 
+// @desc      Get Restriccion
+// @route     GET /api/restriccion
+// @access    Private
 const getRestCurrentUser = async (req, res) => {
     try {
       let _user = await User.findOne({_id: req.user.id})
@@ -72,6 +76,9 @@ const getRestCurrentUser = async (req, res) => {
     }
 }
 
+// @desc      Get restrciccion by username
+// @route     GET /api/restriccion/:username
+// @access    Public
 const getRestByUsername = async (req, res) => {
     try {
       let _user = await User.findOne({user: req.params.username})
