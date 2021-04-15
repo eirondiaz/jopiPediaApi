@@ -12,31 +12,28 @@ const createRest = async (req, res) => {
 
         if(!_tema) return res.status(404).json({ok: false, msg: 'tema no encontrado'})
 
-        let _user = await User.findOne({_id: req.user.id}).populate('restricciones')
+        let _user = await User.findOne({_id: req.user.id})
 
         if(!_user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
 
-        let hayRestriccion = await _user.restricciones.find(x => x.tema == tema)
+        let rest = await Restriccion.findOne({$and: [ {user: _user._id}, {tema} ]})
         
-        if (!hayRestriccion) {
+        if (!rest) {
             let restriccion = new Restriccion({
                 tema,
+                user: _user._id,
                 count: 1
             })
 
             await restriccion.save()
 
-            let restList = [..._user.restricciones, restriccion]
-
-            let userEdited = await User.findByIdAndUpdate(req.user.id, {restricciones: restList}, { new: true })
-
             return res.status(201).json({ok: true, data: restriccion})
         }
 
-        let _count = hayRestriccion.count + 1
+        let _count = rest.count + 1
 
         if (_count == 3) {
-            let restEdited = await Restriccion.findByIdAndUpdate(hayRestriccion._id, {count: _count, restriccion: true}, { new: true })
+            let restEdited = await Restriccion.findByIdAndUpdate(rest._id, {count: _count, restriccion: true}, { new: true })
                 .populate({path: 'tema', select: '-desc'})
 
             return res.status(201).json({ok: true, data: restEdited})
@@ -46,7 +43,7 @@ const createRest = async (req, res) => {
             return res.status(400).json({ok: false, msg: 'este usuario ya tiene una restriccion activa'})
         }
 
-        let restEdited = await Restriccion.findByIdAndUpdate(hayRestriccion._id, {count: _count}, { new: true })
+        let restEdited = await Restriccion.findByIdAndUpdate(rest._id, {count: _count}, { new: true })
             .populate({path: 'tema', select: '-desc'})
 
         return res.status(201).json({ok: true, data: restEdited})
@@ -62,14 +59,11 @@ const createRest = async (req, res) => {
 // @access    Private
 const getRestCurrentUser = async (req, res) => {
     try {
-      let _user = await User.findOne({_id: req.user.id})
-        .populate('restricciones')
-      
-      if (!_user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
+      let _rest = await Restriccion.find({user: req.user.id})
+        .populate({path: 'tema', select: '-desc -__v'})
 
-      await Restriccion.populate(_user.restricciones, {path: 'tema', select: '-desc -__v'})
+      return res.status(200).json({ok: true, data: _rest})
 
-      return res.status(200).json({ok: true, data: _user.restricciones})
     } catch (error) {
         console.log(error)
         return res.status(500).json(error)
@@ -82,13 +76,14 @@ const getRestCurrentUser = async (req, res) => {
 const getRestByUsername = async (req, res) => {
     try {
       let _user = await User.findOne({user: req.params.username})
-        .populate('restricciones')
       
       if (!_user) return res.status(404).json({ok: false, msg: 'usuario no encontrado'})
 
-      await Restriccion.populate(_user.restricciones, {path: 'tema', select: '-desc -__v'})
+      let _rest = await Restriccion.find({user: _user._id})
+        .populate({path: 'tema', select: '-desc -__v'})
 
-      return res.status(200).json({ok: true, data: _user.restricciones})
+      return res.status(200).json({ok: true, data: _rest})
+      
     } catch (error) {
         console.log(error)
         return res.status(500).json(error)

@@ -35,13 +35,18 @@ const userSchema = mongoose.Schema({
             ref: 'User',
             type: mongoose.Schema.Types.ObjectId
         }
-    ],
-    restricciones: [
-        {
-            ref: 'Restriccion',
-            type: mongoose.Schema.Types.ObjectId
-        }
     ]
-}, { versionKey: false })
+}, { 
+    versionKey: false,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
+})
+
+userSchema.virtual('restricciones', {
+    ref: 'Restriccion',
+    localField: '_id',
+    foreignField: 'user',
+    justOne: false
+})
 
 module.exports = mongoose.model('User', userSchema)

@@ -5,6 +5,10 @@ const restriccionSchema = mongoose.Schema({
         ref: 'Tema',
         type: mongoose.Schema.Types.ObjectId
     },
+    user: {
+        ref: 'User',
+        type: mongoose.Schema.Types.ObjectId
+    },
     count: {
         type: Number
     },
