@@ -827,6 +827,37 @@
                         }
                     ]
                 }
+            },
+            "/api/restriccion/getbytema/{tema}": {
+                "get": {
+                    "summary": "obtener las restricciones by temaid",
+                    "tags": ["Restriccion"],
+                    "responses": {
+                        "200": {
+                            "description": "ok"
+                        }
+                    },
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "tema",
+                            "description":"id del tema",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        },
+                        {
+                            "in": "header",
+                            "name": "Authorization",
+                            "description":"token",
+                            "required": true,
+                            "schema": {
+                                "type": "string"
+                            }
+                        }
+                    ]
+                }
             }
         }
     },

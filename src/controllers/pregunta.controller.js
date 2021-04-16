@@ -1,6 +1,9 @@
 const Pregunta = require('../models/Pregunta')
 const Tema = require('../models/Tema')
 
+// @desc      obtener preguntas por el Id del Tema
+// @route     GET /api/pregunta/getbytemaid/:id
+// @access    private
 const getPregByTemaId = async (req, res) => {
     try {
         const preguntas = await Pregunta.find({tema: req.params.id}).populate('tema')
@@ -11,6 +14,9 @@ const getPregByTemaId = async (req, res) => {
     }
 }
 
+// @desc      obtener todas las preguntas
+// @route     GET /api/pregunta/getallpregunta
+// @access    private
 const getAllPregunta = async (req, res) => {
     try {
         const preguntas = await Pregunta.find().populate('tema')
@@ -21,6 +27,9 @@ const getAllPregunta = async (req, res) => {
     }
 }
 
+// @desc      crear pregunta
+// @route     POST /api/pregunta
+// @access    private
 const createPregunta = async (req, res) => {
     const { desc, respuestas, tema } = req.body
     try {
@@ -43,6 +52,9 @@ const createPregunta = async (req, res) => {
     }
 }
 
+// @desc      eliminar pregunta
+// @route     DELETE /api/pregunta/:id
+// @access    private
 const deletePregunta = async (req, res) => {
     try {
         const preguntaDeleted = await Pregunta.findByIdAndDelete(req.params.id)
@@ -55,6 +67,9 @@ const deletePregunta = async (req, res) => {
     }
 }
 
+// @desc      editar pregunta
+// @route     PUT /api/pregunta/:id
+// @access    private
 const updatePregunta = async (req, res) => {
     try {
         const pregUpdated = await Pregunta.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('tema')

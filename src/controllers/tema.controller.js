@@ -1,5 +1,8 @@
 const Tema = require('../models/Tema')
 
+// @desc      obtener todos los temas
+// @route     GET /api/tema/getalltheme
+// @access    private
 const getAllTema = async (req, res) => {
     try {
         let temas = await Tema.find()
@@ -9,6 +12,9 @@ const getAllTema = async (req, res) => {
     }
 }
 
+// @desc      obtener tema por id
+// @route     GET /api/tema/getthemebyid/:id
+// @access    private
 const getTemaById = async (req, res) => {
     try {
         const theme = await Tema.findOne({_id: req.params.id})
@@ -21,6 +27,9 @@ const getTemaById = async (req, res) => {
     }
 }
 
+// @desc      crear tema
+// @route     POST /api/tema
+// @access    private
 const createTema = async (req, res) => {
     const { title, desc, bgColor } = req.body
     try {
@@ -41,6 +50,9 @@ const createTema = async (req, res) => {
     }
 }
 
+// @desc      eliminar tema
+// @route     DELETE /api/tema/:id
+// @access    private
 const deleteTema = async (req, res) => {
     try {
         const deletedTheme = await Tema.findById(req.params.id)
@@ -56,6 +68,9 @@ const deleteTema = async (req, res) => {
     }
 }
 
+// @desc      actualizar tema
+// @route     PUT /api/tema/:id
+// @access    private
 const updateTema = async (req, res) => {
     try {
         let updatedTheme = await Tema.findByIdAndUpdate(req.params.id, req.body, { new: true })

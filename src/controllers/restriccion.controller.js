@@ -90,8 +90,23 @@ const getRestByUsername = async (req, res) => {
     }
 }
 
+// @desc      get restrciccion by temaID
+// @route     GET /api/restriccion/getbytema/:tema
+// @access    private
+const getRestByTemaId = async (req, res) => {
+    try {
+        const _tema = await Restriccion.findOne({$and: [ {user: req.user.id}, {tema: req.params.tema} ]})
+
+        return res.status(200).json({ok: true, data: _tema})
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json(error)
+    }
+}
+
 module.exports = {
     createRest,
     getRestCurrentUser,
-    getRestByUsername
+    getRestByUsername,
+    getRestByTemaId
 }
