@@ -3,19 +3,25 @@ const mongoose = require('mongoose')
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        trim: true
+        trim: true,
+        required: [true, 'name required']
     },
     lName: {
         type: String,
-        trim: true
+        trim: true,
+        required: [true, 'last name required']
     },
     user: {
         type: String,
-        trim: true
+        trim: true,
+        unique: true,
+        required: [true, 'user required']
     },
     email: {
         type: String,
-        trim: true
+        trim: true,
+        unique: true,
+        required: [true, 'email required']
     },
     pass: {
         type: String

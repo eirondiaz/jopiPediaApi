@@ -1,1 +1,3 @@
-requests/auth.http
+/node_modules
+/requests
+.env

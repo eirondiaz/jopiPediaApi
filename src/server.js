@@ -2,9 +2,10 @@ const express = require('express')
 const cors = require('cors')
 const swaggerUI = require('swagger-ui-express')
 const swaggerDocs = require('./swagger-doc')
+const bodyParser = require('body-parser')
 require('./database')
 require('./swagger-doc')
-const bodyParser = require('body-parser')
+require('dotenv').config()
 
 //settings
 const app = express()
