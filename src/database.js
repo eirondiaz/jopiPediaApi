@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-let CONNECTION_STRING = `mongodb+srv://${process.env.USER}:${process.env.PASS}@jopipedia.u33ht.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`
+let CONNECTION_STRING = process.env.MONGO_URI || ''
 
 mongoose.connect(CONNECTION_STRING, {
     useNewUrlParser: true,
