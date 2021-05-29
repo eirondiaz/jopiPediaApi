@@ -9,6 +9,10 @@ const temaSchema = mongoose.Schema({
     },
     bgColor: {
         type: String
+    },
+    icon:{
+        type:String,
+        default: ''
     }
 }, { versionKey: false })
 

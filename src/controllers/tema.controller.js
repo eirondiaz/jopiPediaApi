@@ -31,7 +31,7 @@ const getTemaById = async (req, res) => {
 // @route     POST /api/tema
 // @access    private
 const createTema = async (req, res) => {
-    const { title, desc, bgColor } = req.body
+    const { title, desc, bgColor, icon} = req.body
     try {
         let tema = await Tema.findOne({title})
 
@@ -40,7 +40,8 @@ const createTema = async (req, res) => {
         tema = new Tema({
             title,
             desc, 
-            bgColor
+            bgColor,
+            icon
         })
         await tema.save()
         return res.status(201).json({ok: true, data: tema})
